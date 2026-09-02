@@ -1,0 +1,15 @@
+# GitHub Pages configuration.
+#
+# `theme` (not `remote_theme`) because primer is one of the themes GitHub Pages
+# builds natively — no Gemfile, no Actions workflow, no build step to keep
+# working. Legal copy wants to be readable and nothing else.
+title: tygr
+description: Privacy Policy and Terms of Use for the tygr iOS app
+theme: jekyll-theme-primer
+
+# Pretty URLs: privacy.md publishes at /privacy rather than /privacy.html, which
+# is what the app's AppLinks constants expect.
+permalink: pretty
+
+exclude:
+  - README.md
