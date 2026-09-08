@@ -5,7 +5,7 @@
 This policy explains what tygr collects, why, who else sees it, and how to get
 rid of it. It describes the tygr iOS app and nothing else.
 
-tygr is operated by Abhinav Sreejesh ("we", "us"). For anything in this policy,
+tygr is operated by Dhanya Gopinath ("we", "us"). For anything in this policy,
 including a request to access or delete your data, write to
 **support@tygr.app**.
 
@@ -26,13 +26,12 @@ including a request to access or delete your data, write to
 
 ### Account details
 
-When you create an account we receive, through our authentication provider
-Clerk:
+When you create an account we receive, through Supabase Auth:
 
 - your email address
 - your first and last name, if your sign-in method provides one
 - your profile image URL, if your sign-in method provides one
-- an account identifier that Clerk generates
+- an account identifier that Supabase generates
 
 If you sign in with Apple and choose to hide your email, we receive Apple's
 private relay address and never see your real one.
@@ -105,13 +104,12 @@ the chance to edit it.
 
 ## Who else processes your data
 
-We use three service providers. Each processes data on our behalf, under
-contract, and none of them is permitted to use it for their own purposes.
+We use two service providers. Each processes data on our behalf, under
+contract, and neither is permitted to use it for their own purposes.
 
 | Provider | What it handles |
 |---|---|
-| **Clerk** | Authentication. Holds your email, name and profile image. |
-| **Supabase** | Database and server functions. Holds your profile, workouts, routines, programs, usage counts and subscription expiry. |
+| **Supabase** | Authentication, database and server functions. Holds your account and password credential, your profile, workouts, routines, programs, usage counts and subscription expiry. |
 | **Google** | The Gemini model that answers coach messages and generates programs. |
 
 **What is sent to Google:** your training goal, experience level, preferred unit,
@@ -151,7 +149,7 @@ Your account data and training history are kept for as long as your account
 exists.
 
 When you delete your account, everything listed above is erased from our database
-immediately and your authentication record is deleted from Clerk. Backups made
+immediately, including your authentication record. Backups made
 before the deletion are overwritten on our providers' normal rotation, within 30
 days.
 

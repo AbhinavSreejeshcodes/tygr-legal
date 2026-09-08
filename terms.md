@@ -2,7 +2,7 @@
 
 **Last updated: 30 August 2026**
 
-These terms are the agreement between you and Abhinav Sreejesh ("we", "us") for
+These terms are the agreement between you and Dhanya Gopinath ("we", "us") for
 the tygr iOS app. By creating an account or using the app, you accept them. If
 you do not accept them, do not use tygr.
 
