@@ -49,33 +49,7 @@ anything else.
 ### Training data
 
 Everything you log: exercises, sets, reps, weights, session duration and when
-each session happened; the routines you save; and the programs the AI coach
-generates for you.
-
-### Coach conversations
-
-The messages you send the AI coach, and its replies. These are stored **on your
-device only** — they are not saved to our servers. Each message is sent to our
-server to be answered, and is not retained there after the reply comes back.
-
-### Subscription status
-
-If you subscribe to tygr Pro, Apple gives the app a signed receipt. We send that
-receipt to our server, which verifies Apple's signature and stores a single
-date: when your subscription runs out. **We never receive your payment details.**
-Those stay with Apple.
-
-### Device integrity
-
-To stop the AI features being abused by anything other than the real app, each
-install registers a key with Apple's App Attest service. We store the resulting
-key identifier and public key. This identifies the *app install*, not you, and
-cannot be used to track you across other apps.
-
-### Usage counts
-
-A count of how many AI generations and coach messages you have used in the
-current period, so daily and weekly limits can be enforced.
+each session happened, and the routines you save.
 
 ### What we do **not** collect
 
@@ -87,42 +61,15 @@ current period, so daily and weekly limits can be enforced.
 
 ---
 
-## Microphone and speech
-
-If you use the microphone to talk to the coach, audio is captured only while the
-recording view is open, and only after you grant microphone and speech
-recognition permission.
-
-Transcription uses Apple's Speech framework. Where your device supports on-device
-recognition, the audio never leaves your phone. Where it does not, iOS sends the
-audio to Apple for transcription under
-[Apple's privacy policy](https://www.apple.com/legal/privacy/). We never receive
-or store the audio itself — only the text you choose to send, after you have had
-the chance to edit it.
-
----
 
 ## Who else processes your data
 
-We use two service providers. Each processes data on our behalf, under
-contract, and neither is permitted to use it for their own purposes.
+We use one service provider. It processes data on our behalf, under contract,
+and is not permitted to use it for its own purposes.
 
 | Provider | What it handles |
 |---|---|
-| **Supabase** | Authentication, database and server functions. Holds your account and password credential, your profile, workouts, routines, programs, usage counts and subscription expiry. |
-| **Google** | The Gemini model that answers coach messages and generates programs. |
-
-**What is sent to Google:** your training goal, experience level, preferred unit,
-days per week, session length, equipment, the names and set-and-rep counts of
-your saved routines, a summary of your recent training, and the text of your
-message.
-
-**What is never sent to Google:** your name, your email address, your date of
-birth, or your account identifier. Google does not receive anything that
-identifies you personally.
-
-Apple processes your subscription purchase and, where on-device recognition is
-unavailable, your dictated audio.
+| **Supabase** | Authentication, database and server functions. Holds your account and password credential, your profile, workouts and routines. |
 
 We do not sell your personal information, and we do not share it for cross-context
 behavioural advertising.
@@ -133,13 +80,10 @@ behavioural advertising.
 
 If you are in the UK or EEA, our lawful bases under the UK GDPR and GDPR are:
 
-- **Performance of a contract** — for your account, your training data and your
-  subscription status. Without these the app cannot function.
-- **Legitimate interests** — for App Attest and usage counts, to protect the
-  service from abuse and control costs. We consider this proportionate because
-  neither identifies you personally.
-- **Consent** — for microphone access and for notifications. You can withdraw
-  either at any time in iOS Settings, and the rest of the app carries on working.
+- **Performance of a contract** — for your account and your training data.
+  Without these the app cannot function.
+- **Consent** — for notifications. You can withdraw it at any time in iOS
+  Settings, and the rest of the app carries on working.
 
 ---
 
@@ -152,9 +96,6 @@ When you delete your account, everything listed above is erased from our databas
 immediately, including your authentication record. Backups made
 before the deletion are overwritten on our providers' normal rotation, within 30
 days.
-
-Coach conversations live on your device, so they go when you delete your account
-or remove the app.
 
 ---
 

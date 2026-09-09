@@ -45,6 +45,6 @@ read from there.
 ## Keeping the policy true
 
 The policy describes exactly what the code does today, including the split of
-what is and isn't sent to Google. If you add a framework that collects something
+what the app collects. If you add a framework that collects something
 new — HealthKit, an analytics SDK, location — the policy and
 `Support/PrivacyInfo.xcprivacy` both have to change with it.
