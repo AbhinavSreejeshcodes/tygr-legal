@@ -38,13 +38,11 @@ private relay address and never see your real one.
 
 ### Onboarding answers
 
-The questions asked when you first open the app: your date of birth, your
-experience level, your preferred weight unit, how many days a week you train,
-your training goal, and whether you want workout reminders.
+The three questions asked when you first open the app: your date of birth, your
+preferred weight unit, and whether you want workout reminders.
 
-Your date of birth is used to check you are old enough to use the app and to
-inform training recommendations. We store the date; we do not use it for
-anything else.
+Your date of birth is used to check you are at least 13. We store the date; we
+do not use it for anything else.
 
 ### Training data
 
