@@ -33,7 +33,7 @@ read from there.
 
 - [ ] Both URLs load in a private browser window, with no login and no redirect
       to a parking page.
-- [ ] `support@tygr.app` receives mail. Both pages name it as the way to exercise
+- [ ] `support@tygr.site` receives mail. Both pages name it as the way to exercise
       data rights, and Settings → Contact Support opens it.
 - [ ] The controller name at the top of each page ("Abhinav Sreejesh") is the
       name you actually want to trade under. If you incorporate, change both.

@@ -7,7 +7,7 @@ rid of it. It describes the tygr iOS app and nothing else.
 
 tygr is operated by Dhanya Gopinath ("we", "us"). For anything in this policy,
 including a request to access or delete your data, write to
-**support@tygr.app**.
+**support@tygr.site**.
 
 ---
 
@@ -114,7 +114,7 @@ yourself:
 - **Correct your details** — through the app's onboarding answers and Settings.
 
 For anything else, including a copy of your data in a portable format, email
-**support@tygr.app** and we will respond within 30 days.
+**support@tygr.site** and we will respond within 30 days.
 
 If you are in the UK or EEA you also have the right to object to processing, to
 restrict it, and to complain to your data protection authority — in the UK, the
@@ -131,7 +131,7 @@ defined by the CCPA.
 
 tygr is not intended for anyone under 13, and we do not knowingly collect data
 from children under 13. If you believe a child has created an account, email
-**support@tygr.app** and we will delete it.
+**support@tygr.site** and we will delete it.
 
 ---
 
@@ -163,4 +163,4 @@ significant we will tell you in the app before it takes effect.
 
 ## Contact
 
-**support@tygr.app**
+**support@tygr.site**
