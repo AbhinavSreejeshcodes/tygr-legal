@@ -1,50 +1,50 @@
-# Legal pages
+# tygr.site
 
-`privacy.md` and `terms.md` are the two pages App Review opens. Both are required
-before submission: 5.1.1(v) and 3.1.2 respectively.
+This repo publishes `tygr.site`: the landing page, and the two legal documents
+App Review opens. GitHub Pages builds it from `main`.
 
-## Publishing on GitHub Pages
+| File | Serves | Notes |
+|---|---|---|
+| `index.html` | `/` | Hand-written, no build step. It has no front matter, so Jekyll copies it untouched. |
+| `img/` | `/img/…` | Mascot and icons, resized from the app's asset catalog. |
+| `privacy.md` | `/privacy/` | Rendered by Jekyll with the primer theme. |
+| `terms.md` | `/terms/` | Same. |
 
-1. Push this repo (or just this `legal/` folder) to GitHub.
-2. **Settings → Pages → Build and deployment**: Source = *Deploy from a branch*,
-   branch = `main`, folder = `/legal` (or `/` if the folder is the repo root).
-3. GitHub renders the Markdown through Jekyll, so `privacy.md` publishes at
-   `/privacy` and `terms.md` at `/terms`.
+`permalink: pretty` in `_config.yml` is what puts the legal pages at `/privacy/`
+and `/terms/`. `/privacy.html` is a 404 — don't link to it.
 
-That gives you, for example:
+## The app links here
 
-```
-https://<username>.github.io/<repo>/privacy
-https://<username>.github.io/<repo>/terms
-```
+`tygr/AppLinks.swift` in the app repo holds the only copies of the legal URLs.
+They point at `abhinavsreejeshcodes.github.io/tygr-legal/…`. Once `tygr.site` is
+the custom domain, GitHub redirects those addresses to `tygr.site`, so builds
+already shipped keep working. Switch the constants to `https://tygr.site/privacy/`
+and `/terms/` in a later build if you like — never before the custom domain is
+serving, or the app ships dead links.
 
-To use `tygr.app` instead, point the domain at GitHub Pages and set it under
-**Settings → Pages → Custom domain**. The URLs then become `https://tygr.app/privacy`
-and `https://tygr.app/terms`, which is what the app already links to.
+## Custom domain
 
-## Then update the app
+DNS for `tygr.site` is on Cloudflare. For GitHub Pages to serve it:
 
-Whichever URLs you end up with, they must match `AppLinks` in
-[`tygr/PaywallView.swift`](../tygr/PaywallView.swift). Those two constants are
-the only place the app names them — the paywall footer and Settings → About both
-read from there.
+- apex `A` records → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`,
+  `185.199.111.153`, **DNS only** (grey cloud — the proxy gets in the way of
+  GitHub issuing the certificate)
+- `www` `CNAME` → `abhinavsreejeshcodes.github.io`, DNS only
+- Settings → Pages → Custom domain `tygr.site`, then **Enforce HTTPS** once it's
+  offered
 
-## Check before submitting
+Setting the custom domain in GitHub's UI commits a `CNAME` file to `main`, so
+pull before your next push.
 
-- [ ] Both URLs load in a private browser window, with no login and no redirect
-      to a parking page.
-- [ ] `support@tygr.site` receives mail. Both pages name it as the way to exercise
-      data rights, and Settings → Contact Support opens it.
-- [ ] The controller name at the top of each page ("Abhinav Sreejesh") is the
-      name you actually want to trade under. If you incorporate, change both.
-- [ ] The governing-law clause in `terms.md` says England and Wales. Change it if
-      that is not where you are.
-- [ ] The privacy policy URL is also entered in App Store Connect, separately
-      from the app itself.
+Leave the `MX` and `TXT` records alone. They are Cloudflare Email Routing, which
+is what makes `support@tygr.site` receive mail.
 
-## Keeping the policy true
+## Keeping it true
 
-The policy describes exactly what the code does today, including the split of
-what the app collects. If you add a framework that collects something
-new — HealthKit, an analytics SDK, location — the policy and
-`Support/PrivacyInfo.xcprivacy` both have to change with it.
+- The privacy policy describes exactly what the app does today. If the app starts
+  collecting something new — HealthKit, analytics, location — the policy, its
+  "Last updated" date and `Support/PrivacyInfo.xcprivacy` all change with it.
+- The landing page names specific features. If one leaves the app, it leaves the
+  page too.
+- `support@tygr.site` has to keep receiving mail: both documents name it as the
+  way to exercise data rights, and Settings → Contact Support opens it.

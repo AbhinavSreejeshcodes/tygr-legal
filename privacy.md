@@ -1,6 +1,6 @@
 # Privacy Policy
 
-**Last updated: 30 August 2026**
+**Last updated: 13 September 2026**
 
 This policy explains what tygr collects, why, who else sees it, and how to get
 rid of it. It describes the tygr iOS app and nothing else.
@@ -26,12 +26,15 @@ including a request to access or delete your data, write to
 
 ### Account details
 
-When you create an account we receive, through Supabase Auth:
+You sign in to tygr with Apple or Google. When you do, we receive, through
+Supabase Auth:
 
 - your email address
 - your first and last name, if your sign-in method provides one
 - your profile image URL, if your sign-in method provides one
 - an account identifier that Supabase generates
+
+tygr has no passwords, so we never see or store one.
 
 If you sign in with Apple and choose to hide your email, we receive Apple's
 private relay address and never see your real one.
@@ -74,7 +77,10 @@ and is not permitted to use it for its own purposes.
 
 | Provider | What it handles |
 |---|---|
-| **Supabase** | Authentication, database and server functions. Holds your account and password credential, your profile, workouts and routines. |
+| **Supabase** | Authentication, database and server functions. Holds your account, your profile, workouts and routines. |
+
+Signing in itself is handled by Apple or Google, under their own privacy
+policies. They confirm who you are; we send them nothing about your training.
 
 We do not sell your personal information, and we do not share it for cross-context
 behavioural advertising.
@@ -139,8 +145,7 @@ from children under 13. If you believe a child has created an account, email
 
 Traffic between the app and our servers uses TLS. Database rows are protected by
 row-level security policies, so an authenticated user can read and write only
-their own rows. Model API keys are held as server-side secrets and are never
-present in the app.
+their own rows.
 
 No system is perfectly secure, and we cannot guarantee absolute security.
 

@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#FFFDFC">
+<title>tygr · Strength training for iPhone</title>
+<meta name="description" content="tygr is a free strength-training tracker for iPhone. Log a set in one tap, let it do the plate maths, and see which muscles are ready to train.">
+<link rel="canonical" href="https://tygr.site/">
+<link rel="icon" type="image/png" sizes="64x64" href="img/favicon.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="tygr">
+<meta property="og:title" content="tygr · Strength training for iPhone">
+<meta property="og:description" content="Log a set in one tap, let it do the plate maths, and see which muscles are ready to train.">
+<meta property="og:url" content="https://tygr.site/">
+<meta property="og:image" content="https://tygr.site/img/icon-512.png">
+<meta name="twitter:card" content="summary">
+<!--
+  One file, no build step, no third-party requests. The type is the system face,
+  which on an iPhone is SF: the same type the app uses. Colours come from
+  tygr/Theme.swift and tygr/Shared/BrandStyle.swift in the app repo, and the
+  plate colours from Workout/PlateCalculatorSheet.swift.
+-->
+<style>
+:root {
+  --ember: #F0662D;
+  --ember-deep: #BF4518;
+  --amber: #F5A623;
+  --ink: #121212;
+  --body: #3A3A3C;
+  --muted: #6B6A72;
+  --ground-top: #FFFDFC;
+  --ground-bottom: #FCF8F5;
+  --surface: #F6F4FA;
+  --grid: #E9E5F0;
+  --line: #ECE8F1;
+  --green: #25B65E;
+  --red: #E5484D;
+  --yellow: #F5C518;
+
+  --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+* { box-sizing: border-box; }
+html { background: var(--ground-bottom); }
+body {
+  margin: 0;
+  color: var(--body);
+  background: linear-gradient(180deg, var(--ground-top) 0%, #FFFFFF 35%, #FEFCFB 75%, var(--ground-bottom) 100%);
+  font: 17px/1.6 var(--sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img { max-width: 100%; }
+a { color: var(--ember-deep); text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
+a:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; border-radius: 6px; }
+
+.wrap { max-width: 1120px; margin-inline: auto; padding-inline: clamp(20px, 5vw, 40px); }
+
+.skip {
+  position: absolute; left: 12px; top: -60px; padding: 10px 14px; border-radius: 10px;
+  background: var(--ink); color: #fff; font-weight: 600; text-decoration: none; z-index: 10;
+}
+.skip:focus { top: 12px; }
+
+/* Nav */
+.nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 20px; }
+.wordmark {
+  display: inline-flex; align-items: center; gap: 10px; text-decoration: none;
+  color: var(--ink); font: 800 26px/1 var(--display); letter-spacing: -0.035em;
+}
+.wordmark img { width: 36px; height: 36px; border-radius: 9px; }
+.nav-link {
+  color: var(--ink); text-decoration: none; font: 600 15px/1 var(--sans);
+  padding: 11px 18px; border-radius: 999px; background: var(--surface);
+}
+.nav-link:hover { background: #ECE8F4; }
+
+/* Hero */
+.hero {
+  display: grid; grid-template-columns: 1.2fr 0.8fr; align-items: center;
+  gap: clamp(28px, 5vw, 64px);
+  padding-block: clamp(20px, 5vw, 56px) clamp(36px, 6vw, 80px);
+}
+.eyebrow {
+  margin: 0; color: var(--muted);
+  font: 600 12px/1 var(--mono); letter-spacing: 0.14em; text-transform: uppercase;
+}
+h1 {
+  margin: 16px 0 0; color: var(--ink);
+  font: 800 clamp(46px, 6.6vw, 84px)/0.97 var(--display); letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+.stripe { position: relative; white-space: nowrap; isolation: isolate; }
+.swash {
+  position: absolute; z-index: -1; left: -3%; bottom: 0.03em; width: 106%; height: 0.36em;
+  transform-origin: left center;
+  animation: swipe 0.7s 0.15s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@keyframes swipe {
+  from { transform: scaleX(0.35); opacity: 0.55; }
+  to   { transform: scaleX(1); opacity: 1; }
+}
+.lede { margin: 24px 0 0; max-width: 33ch; font-size: clamp(18px, 1.9vw, 21px); line-height: 1.5; }
+.cta { margin-top: 32px; }
+.button {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 56px; padding: 0 28px;
+  border-radius: 999px; background: var(--ember); color: #fff; text-decoration: none;
+  font: 700 19px/1 var(--sans);
+  box-shadow: 0 12px 26px -14px rgb(240 102 45 / 0.85);
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+.button:hover { background: #E2571F; }
+.button:active { transform: translateY(1px); }
+.button:focus-visible { border-radius: 999px; }
+.meta { margin: 16px 0 0; color: var(--muted); font: 500 14px/1.5 var(--sans); }
+.meta span { padding-inline: 6px; }
+
+.hero-art { position: relative; width: 100%; max-width: 476px; aspect-ratio: 476 / 442; justify-self: center; }
+.blueprint {
+  position: absolute; inset: 0; overflow: hidden;
+  background-image:
+    linear-gradient(to right, var(--grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+  background-size: 34px 34px;
+  -webkit-mask-image: radial-gradient(closest-side, #000 45%, rgb(0 0 0 / 0.35) 76%, transparent 100%);
+          mask-image: radial-gradient(closest-side, #000 45%, rgb(0 0 0 / 0.35) 76%, transparent 100%);
+}
+.blueprint i {
+  position: absolute; width: 33px; height: 33px;
+  left: calc(var(--c) * 34px + 1px); top: calc(var(--r) * 34px + 1px);
+  background: rgb(245 166 35 / var(--a));
+}
+.sticker {
+  position: absolute; left: 50%; top: 53%; width: 66%; height: auto;
+  translate: -50% -50%; rotate: -6deg;
+  border: 8px solid #fff; border-radius: 22.4%;
+  box-shadow: 0 2px 3px rgb(60 40 28 / 0.08), 0 30px 50px -26px rgb(240 102 45 / 0.6);
+  transition: rotate 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.hero-art:hover .sticker { rotate: 2deg; }
+.bubble {
+  position: absolute; right: 0; top: 3%; max-width: 15ch; margin: 0;
+  padding: 12px 16px; background: var(--ink); color: #fff;
+  font: 600 15px/1.32 var(--sans);
+  border-radius: 20px 20px 20px 6px; rotate: 4deg;
+  box-shadow: 0 14px 28px -16px rgb(18 18 18 / 0.55);
+}
+
+/* Sections */
+.block { padding-top: clamp(44px, 7vw, 88px); }
+.section-title {
+  margin: 0 0 28px; max-width: 18ch; color: var(--ink);
+  font: 800 clamp(32px, 4.4vw, 52px)/1.02 var(--display); letter-spacing: -0.035em; text-wrap: balance;
+}
+.tag {
+  margin: 0; color: var(--ember-deep);
+  font: 600 11.5px/1 var(--mono); letter-spacing: 0.12em; text-transform: uppercase;
+}
+
+/* Plate maths */
+.rack {
+  display: grid; grid-template-columns: 0.9fr 1.1fr; align-items: center;
+  gap: clamp(24px, 4vw, 56px);
+  background: var(--surface); border-radius: 28px; padding: clamp(24px, 4.5vw, 52px);
+}
+.rack h2 {
+  margin: 12px 0 0; color: var(--ink);
+  font: 800 clamp(28px, 3.4vw, 40px)/1.05 var(--display); letter-spacing: -0.03em; text-wrap: balance;
+}
+.rack-copy p:last-child { margin: 14px 0 0; max-width: 40ch; }
+.rack-figure { margin: 0; }
+.barbell { display: block; width: 100%; height: auto; }
+.sum {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px;
+  margin-top: 16px; color: var(--body);
+  font: 600 15px/1.4 var(--mono); font-variant-numeric: tabular-nums;
+}
+.sum strong { color: var(--ink); }
+.plate {
+  display: inline-grid; place-items: center; min-width: 2.3em; padding: 2px 7px; border-radius: 7px;
+  font-weight: 700;
+}
+.plate.p25 { background: var(--red); color: #fff; }
+.plate.p15 { background: var(--yellow); color: var(--ink); }
+
+/* Features */
+.cards { display: grid; gap: 16px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.card { background: var(--surface); border-radius: 24px; padding: 24px 24px 26px; }
+.card h3 {
+  margin: 12px 0 0; color: var(--ink);
+  font: 700 21px/1.2 var(--display); letter-spacing: -0.02em; text-wrap: balance;
+}
+.card p:not(.tag) { margin: 8px 0 0; font-size: 16px; line-height: 1.55; }
+.legend {
+  list-style: none; padding: 0; margin: 14px 0 0;
+  display: flex; flex-wrap: wrap; gap: 6px 14px;
+  color: var(--muted); font: 500 13px/1.2 var(--sans);
+}
+.legend li { display: inline-flex; align-items: center; gap: 6px; }
+.dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+.dot.g { background: var(--green); }
+.dot.a { background: var(--amber); }
+.dot.r { background: var(--red); }
+
+/* Yours */
+.yours { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: clamp(20px, 4vw, 48px); max-width: 940px; }
+.mascot { width: 206px; height: auto; }
+.yours h2 {
+  margin: 0; color: var(--ink);
+  font: 800 clamp(30px, 4vw, 46px)/1.04 var(--display); letter-spacing: -0.035em; text-wrap: balance;
+}
+.yours p { margin: 14px 0 0; max-width: 54ch; }
+.yours .links { display: flex; flex-wrap: wrap; gap: 8px 22px; font-weight: 600; }
+
+/* Footer */
+.foot { margin-top: clamp(56px, 9vw, 112px); border-top: 1px solid var(--line); }
+.foot-inner { padding-block: 28px 44px; color: var(--muted); font-size: 14px; }
+.foot-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; }
+.foot .wordmark { font-size: 20px; }
+.foot .wordmark img { width: 28px; height: 28px; border-radius: 7px; }
+.foot nav { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+.foot nav a { color: var(--body); font-weight: 500; }
+.disclaimer { margin: 20px 0 0; max-width: 70ch; }
+.copy { margin: 8px 0 0; }
+
+@media (max-width: 960px) {
+  .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 860px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-art { max-width: 400px; }
+  .rack { grid-template-columns: 1fr; }
+}
+@media (max-width: 620px) {
+  .cards { grid-template-columns: 1fr; }
+  .yours { grid-template-columns: 1fr; }
+  .mascot { width: 150px; }
+  .bubble { font-size: 13px; padding: 10px 13px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .swash { animation: none; }
+  .sticker, .button { transition: none; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="wrap nav">
+  <a class="wordmark" href="./">
+    <img src="img/apple-touch-icon.png" width="36" height="36" alt="">
+    <span>tygr</span>
+  </a>
+  <a class="nav-link" href="mailto:support@tygr.site">Support</a>
+</header>
+
+<main id="main">
+  <section class="wrap hero" aria-labelledby="hero-title">
+    <div class="hero-copy">
+      <p class="eyebrow">Strength tracker for iPhone</p>
+      <h1 id="hero-title">Every workout earns a <span class="stripe">stripe<svg class="swash" viewBox="0 0 300 44" preserveAspectRatio="none" aria-hidden="true" focusable="false"><defs><linearGradient id="stripe-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F5A623"/><stop offset="1" stop-color="#F0662D"/></linearGradient></defs><path d="M3 30 C 70 8, 170 2, 297 12 C 226 24, 128 36, 3 30 Z" fill="url(#stripe-fill)"/></svg></span>.</h1>
+      <p class="lede">tygr logs a set in one tap, does the plate maths for you, and shows which muscles are ready to train.</p>
+      <div class="cta">
+        <!-- Swap this for the TestFlight public link once external testing is approved. -->
+        <a class="button" href="mailto:support@tygr.site?subject=tygr%20beta">Ask to join the beta</a>
+        <p class="meta">Free<span aria-hidden="true">·</span>No ads<span aria-hidden="true">·</span>Sign in with Apple or Google</p>
+      </div>
+    </div>
+
+    <div class="hero-art">
+      <div class="blueprint" aria-hidden="true">
+        <i style="--c:1;--r:2;--a:.16"></i>
+        <i style="--c:3;--r:0;--a:.10"></i>
+        <i style="--c:9;--r:0;--a:.22"></i>
+        <i style="--c:12;--r:1;--a:.14"></i>
+        <i style="--c:0;--r:6;--a:.13"></i>
+        <i style="--c:13;--r:6;--a:.18"></i>
+        <i style="--c:2;--r:10;--a:.20"></i>
+        <i style="--c:6;--r:12;--a:.14"></i>
+        <i style="--c:11;--r:11;--a:.20"></i>
+        <i style="--c:13;--r:10;--a:.11"></i>
+      </div>
+      <img class="sticker" src="img/app-icon.jpg" width="720" height="720" alt="The tygr app icon: a cartoon tiger in a black tank top, flexing and winking.">
+      <p class="bubble">I’m built so you actually keep showing up.</p>
+    </div>
+  </section>
+
+  <section class="wrap" aria-labelledby="rack-title">
+    <div class="rack">
+      <div class="rack-copy">
+        <p class="tag">Plate maths</p>
+        <h2 id="rack-title">Type the weight. tygr says what goes on the bar.</h2>
+        <p>Walk up to the rack with a number in mind and the plate calculator breaks it down per side, in kilos or pounds, for the bar you’re using.</p>
+      </div>
+      <figure class="rack-figure">
+        <svg class="barbell" viewBox="0 0 640 160" role="img" aria-labelledby="barbell-title">
+          <title id="barbell-title">A barbell loaded to 100 kilograms: a 20 kilogram bar with a 25 and a 15 kilogram plate on each side.</title>
+          <defs>
+            <linearGradient id="bar-metal" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#B9B7C4"/>
+              <stop offset="1" stop-color="#D9D7E2"/>
+            </linearGradient>
+          </defs>
+          <rect x="150" y="75" width="340" height="10" rx="5" fill="url(#bar-metal)"/>
+          <rect x="28" y="72" width="126" height="16" rx="4" fill="#A9A7B4"/>
+          <rect x="486" y="72" width="126" height="16" rx="4" fill="#A9A7B4"/>
+          <rect x="146" y="60" width="10" height="40" rx="3" fill="#8F8D9A"/>
+          <rect x="484" y="60" width="10" height="40" rx="3" fill="#8F8D9A"/>
+          <rect x="115" y="14" width="28" height="132" rx="5" fill="#E5484D"/>
+          <rect x="90" y="22" width="22" height="116" rx="5" fill="#F5C518"/>
+          <rect x="80" y="64" width="7" height="32" rx="2" fill="#8F8D9A"/>
+          <rect x="497" y="14" width="28" height="132" rx="5" fill="#E5484D"/>
+          <rect x="528" y="22" width="22" height="116" rx="5" fill="#F5C518"/>
+          <rect x="553" y="64" width="7" height="32" rx="2" fill="#8F8D9A"/>
+          <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" font-weight="700" text-anchor="middle">
+            <text x="129" y="85" fill="#FFFFFF">25</text>
+            <text x="101" y="85" fill="#121212">15</text>
+            <text x="511" y="85" fill="#FFFFFF">25</text>
+            <text x="539" y="85" fill="#121212">15</text>
+          </g>
+          <text x="320" y="114" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#6B6A72">20 kg bar</text>
+        </svg>
+        <figcaption class="sum">
+          <span>20 kg bar</span><span>+</span>
+          <span>(<b class="plate p25">25</b> + <b class="plate p15">15</b>) × 2</span>
+          <span>=</span><strong>100 kg</strong>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="wrap block" aria-labelledby="features-title">
+    <h2 id="features-title" class="section-title">Made for between sets</h2>
+    <div class="cards">
+      <article class="card">
+        <p class="tag">Logging</p>
+        <h3>A keypad made for sets</h3>
+        <p>It knows a weight from a rep count, nudges numbers up or down, and fills in what you lifted last time.</p>
+      </article>
+      <article class="card">
+        <p class="tag">Recovery</p>
+        <h3>See what’s ready to train</h3>
+        <p>A body map built from your logged workouts shows which muscles are ready, which are coming back, and which are still fatigued.</p>
+        <ul class="legend" aria-label="Recovery colours">
+          <li><i class="dot g"></i>Ready</li>
+          <li><i class="dot a"></i>Coming back</li>
+          <li><i class="dot r"></i>Fatigued</li>
+        </ul>
+      </article>
+      <article class="card">
+        <p class="tag">Streaks</p>
+        <h3>Keep the streak alive</h3>
+        <p>See your streak and the days you’ve banked this week, with badges at 7, 30 and 100 days and for setting a personal record.</p>
+      </article>
+      <article class="card">
+        <p class="tag">Routines</p>
+        <h3>“Build me a workout”</h3>
+        <p>Tell it what you’re working with, like the equipment you’ve got, and it builds a routine you can regenerate, edit, save or start.</p>
+      </article>
+      <article class="card">
+        <p class="tag">Library</p>
+        <h3>873 exercises built in</h3>
+        <p>Each one is linked to the muscles it works, which is how the recovery map knows what you trained.</p>
+      </article>
+      <article class="card">
+        <p class="tag">Widgets</p>
+        <h3>Check in without opening it</h3>
+        <p>Your streak, recovery and latest PR on the Home Screen, and your streak and recovery on the Lock Screen.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="wrap block" aria-labelledby="yours-title">
+    <div class="yours">
+      <img class="mascot" src="img/mascot.png" width="206" height="197" alt="">
+      <div>
+        <h2 id="yours-title">Free. No ads. Nothing tracked.</h2>
+        <p>The app has no ads, no analytics and no advertising identifier. You sign in with Apple or Google, so tygr never sees a password, and you can delete your account and everything in it from Settings whenever you like.</p>
+        <p class="links"><a href="privacy/">Privacy Policy</a><a href="terms/">Terms of Use</a></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-inner">
+    <div class="foot-row">
+      <a class="wordmark" href="./">
+        <img src="img/apple-touch-icon.png" width="28" height="28" alt="">
+        <span>tygr</span>
+      </a>
+      <nav aria-label="Legal and support">
+        <a href="privacy/">Privacy</a>
+        <a href="terms/">Terms</a>
+        <a href="mailto:support@tygr.site">support@tygr.site</a>
+      </nav>
+    </div>
+    <p class="disclaimer">tygr gives training guidance, not medical advice. Check with a doctor before starting if you have an injury or a health condition, and stop if something hurts.</p>
+    <p class="copy">© 2026 tygr</p>
+  </div>
+</footer>
+</body>
+</html>
