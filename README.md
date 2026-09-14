@@ -6,6 +6,7 @@ App Review opens. GitHub Pages builds it from `main`.
 | File | Serves | Notes |
 |---|---|---|
 | `index.html` | `/` | Hand-written, no build step. It has no front matter, so Jekyll copies it untouched. |
+| `CNAME` | — | The custom domain, `tygr.site`. |
 | `img/` | `/img/…` | Mascot and icons, resized from the app's asset catalog. |
 | `privacy.md` | `/privacy/` | Rendered by Jekyll with the primer theme. |
 | `terms.md` | `/terms/` | Same. |
@@ -24,17 +25,24 @@ serving, or the app ships dead links.
 
 ## Custom domain
 
-DNS for `tygr.site` is on Cloudflare. For GitHub Pages to serve it:
+The `CNAME` file in this repo is what tells GitHub Pages to serve the site at
+`tygr.site`. Delete it and the site goes back to `github.io`.
 
-- apex `A` records → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`,
-  `185.199.111.153`, **DNS only** (grey cloud — the proxy gets in the way of
-  GitHub issuing the certificate)
-- `www` `CNAME` → `abhinavsreejeshcodes.github.io`, DNS only
-- Settings → Pages → Custom domain `tygr.site`, then **Enforce HTTPS** once it's
-  offered
+DNS for `tygr.site` is on Cloudflare: two records, both **DNS only** (grey cloud —
+the proxy gets in the way of GitHub issuing the certificate).
 
-Setting the custom domain in GitHub's UI commits a `CNAME` file to `main`, so
-pull before your next push.
+| Type | Name | Target |
+|---|---|---|
+| `CNAME` | `@` | `abhinavsreejeshcodes.github.io` |
+| `CNAME` | `www` | `abhinavsreejeshcodes.github.io` |
+
+A CNAME on the bare domain isn't normally allowed; Cloudflare flattens it into
+GitHub's addresses, which is what makes it work next to the mail records. The
+target is the host name only — DNS can't point at a path like `/tygr-legal/`.
+GitHub works out which repo to serve from the `CNAME` file.
+
+Once GitHub has issued the certificate, tick **Enforce HTTPS** under
+Settings → Pages.
 
 Leave the `MX` and `TXT` records alone. They are Cloudflare Email Routing, which
 is what makes `support@tygr.site` receive mail.
