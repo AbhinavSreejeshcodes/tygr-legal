@@ -1,6 +1,6 @@
 # Terms of Use
 
-**Last updated: 13 September 2026**
+**Last updated: 14 September 2026**
 
 These terms are the agreement between you and Dhanya Gopinath ("we", "us") for
 the tygr iOS app. By creating an account or using the app, you accept them. If
@@ -22,7 +22,7 @@ responsible for what happens under your account.
 
 **This matters more than anything else here.**
 
-tygr can build routines for you and fills in weights from what you have logged
+tygr lets you build routines and fills in weights from what you have logged
 before. It is a fitness tool, not a medical device, and nothing it produces is
 medical advice, diagnosis or treatment.
 
